@@ -41,7 +41,8 @@ If N is the number of flow logs and M is the number of tag mappings in the looku
 The above test cases also provide coverage regarding verifying that even if a port is present in the lookup table, it will not be present in the output file unless the protocol with which it is mapped to a certain tag is also present in a log (and vice versa). 
 In other words, the output frequency will depend on both the port and the protocol being present in the logs, not just either one.
 
-The test cases also verify that the `cumulative frequency sum of all ( (port, protocol) , count ) entries is = to the cumulative frequency sum of all (tag, count) entries - the frequency of Untagged`
+The test cases verify that the `cumulative frequency of all (tag, count) entries == the number of logs (including those that are untagged)`
+They also verify that the `cumulative frequency sum of all ( (port, protocol) , count ) entries is = to the cumulative frequency sum of all (tag, count) entries - the frequency of Untagged`
 
 ## Instructions On Running The Program & Test Cases
 

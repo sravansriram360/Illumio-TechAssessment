@@ -2,7 +2,7 @@
 
 ## Assumptions
 1. The program only supports default log format, not custom and the only version that is supported is 2. 
-2. The input files (both the log file and the lookup table file) do not contain duplicate or conflicting entries.
+2. The lookup table file does not contain conflicting entries - i.e. the same (port, protocol) is only mapped to a single tag.
 3. We only support 4 protocols (TCP, UDP, ICMP, GRE) - This is to avoid hardcoding the integer to protocol string mapping of all protocols (but we can still provide sufficient test coverage using these protocols).
 4. All tags (and protocol strings) are output in their lowercase form. For example, `sv_P1`, `Sv_P1`, `SV_P1` are all the same tags and are mapped to the output tag `sv_p1`.
 
@@ -59,7 +59,7 @@ For example, after running the logMapper.py file, we expect to see the output co
 <p align="center">To run the logMapper.py file run the command <strong>python3 logMapper.py</strong> on your terminal</p> 
 
 In case, one wants to add additional test case input files - 
-* Create a parent level directory and a subfolder called `input`. Place the input flow logs in a file called flow_logs.txt and the lookup table in a file called `lookup_table.txt` in this input subfolder.
+* Create a parent level directory and a subfolder called `input`. Place the input flow logs in a file called `flow_logs.txt` and the lookup table in a file called `lookup_table.txt` in this input subfolder.
 * Add the parent level directory name to the `tests` list on line 127 of logMapper.py.
 * After running the logMapper.py file, you will see the output files present in the output subfolder of the parent test directory.
 

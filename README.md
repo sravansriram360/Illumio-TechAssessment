@@ -20,8 +20,10 @@ Specifically, the following approach is taken:
 ## Runtime Complexity Analysis
 
 If N is the number of flow logs and M is the number of tag mappings in the lookup table:
-* Time taken to parse lookup table file: O(M) [O(1) hashmap insertion)
-* Time taken to map logs to their tags: O(N) [O(1) hashmap lookup to check whether a match exists, as well as O(1) insertion into the frequency hashmaps]
+* Time taken to parse lookup table file: O(M)
+  + O(1) hashmap insertion to map the (port, protocol) -> tag
+* Time taken to map logs to their tags: O(N)
+  + O(1) hashmap lookup to check whether a match exists, as well as O(1) insertion into the frequency hashmaps
 * Time taken to write the output tag counts and the (port, protocol) counts to output files: O(N + M)
 
 <strong>`Total runtime complexity: O(N + M)`</strong>
@@ -54,7 +56,7 @@ For example, after running the logMapper.py file, we expect to see the output co
   + `singleTagMappingAllPresentTest/output/tagCount.txt` (containing the tag, count output)
   + `singleTagMappingAllPresentTest/output/port-protocolCount.txt` (containing the port, protocol, count output)
     
-<p align="center">To run the logMapper.py file run, <strong>python3 logMapper.py</strong>.</p>
+`<p align="center">To run the logMapper.py file run, <strong>python3 logMapper.py</strong>.</p>`
 
 In case, one wants to add additional test case input files - 
 * Create a parent level directory and a subfolder called `input`. Place the input flow logs in a file called flow_logs.txt and the lookup table in a file called `lookup_table.txt` in this input subfolder.

@@ -1,0 +1,9 @@
+dstport,protocol,tag 
+25,tcp,sv_P1 
+68,udp,sv_P2 
+0,icmp,sv_P5 
+110,gre,sv_P7
+68,icmp,sv_P2
+49554,udp,sv_P2
+28,tcp,sv_P5
+110,tcp,sv_P8

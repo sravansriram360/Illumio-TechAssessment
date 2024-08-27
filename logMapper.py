@@ -85,7 +85,11 @@ class LogMapper:
             else:
                 self.__incrementKeyCount( self.tagCount, 'Untagged' )
     
-    # Writes to an output file contianing info regarding the frequency of each unique tag observed
+    '''
+        Writes to an output file contianing info regarding the frequency of 
+        each tag (as well as those that are Untagged). Outputs a WARNING message if the total 
+        cumulative count of all tags is not equal to the total number of logs.
+    '''
     def __outputTagCount( self ):
         totalSum = 0
         with open( self.dir + '/output/tagCount.txt', 'w' ) as file:
@@ -100,8 +104,6 @@ class LogMapper:
     '''
         Writes to an output file contianing info regarding the frequency of 
         each unique (port, protocol) combination observed.
-        Outputs a WARNING message if the total cumulative count of (port, protocol)
-        combination is not equal to the number of logs.
     '''
     def __outputPortProtocolCount( self ):
         with open( self.dir + '/output/port-protocolCount.txt', 'w' ) as file:

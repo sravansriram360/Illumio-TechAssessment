@@ -36,10 +36,12 @@ If N is the number of flow logs and M is the number of tag mappings in the looku
 4. `duplicateTagMappingSomeUntaggedTest`: This test provides the same coverage as the duplicateTagMappingAllPresentTest but also includes logs with (dst_port, protocol)s that are not present in the lookup table. We expect to see the appropriate count of Untagged rows appear in the output.
 5. `duplicatePortProtocolTest`: This test provides an input multiple different logs, with different (dst_port, protocol) combinations. Some of these (dst_port, protocol) combinations are found multiple times in the flow logs. We expect to see the appropriate frequency of these (dst_port, protocol) combinations in the output. We additionally ensure that (dst_port, protocol)s that are not matched to a tag in the lookup table do not show up in the output.
 6. `caseSensitiveTest`: This test maps two different (dst_port, protocol) combinations to the same tag (one to sv_P1 and another to SV_P1). This test ensures that both these tags map to sv_p1 to ensure case insensitivity and do not show up as different tags in the output.
-7. `scaleTest`: This test uses a ~10 MB flow log file and 10,000 row lookup table file to ensure that the program runs efficiently and quickly.
+7. `scaleTest`: This test uses a ~10 MB flow log file and 10,000 row lookup table file to ensure that the program runs efficiently and quickly. The `scaleGenerator.py` file (under the `scaleTest/` folder) has been used to create sample input data to test our implementation at this scale.
 
 The above test cases also provide coverage regarding verifying that even if a port is present in the lookup table, it will not be present in the output file unless the protocol with which it is mapped to a certain tag is also present in a log (and vice versa). 
 In other words, the output frequency will depend on both the port and the protocol being present in the logs, not just either one.
+
+The test cases also verify that the `cumulative frequency sum of all ( (port, protocol) , count ) entries is = to the cumulative frequency sum of all (tag, count) entries - the frequency of Untagged`
 
 ## Instructions On Running The Program & Test Cases
 

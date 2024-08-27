@@ -42,7 +42,7 @@ The above test cases also provide coverage regarding verifying that even if a po
 In other words, the output frequency will depend on both the port and the protocol being present in the logs, not just either one.
 
 The test cases verify that the `cumulative frequency of all (tag, count) entries == the number of logs (including those that are untagged)`
-They also verify that the `cumulative frequency sum of all ( (port, protocol) , count ) entries is = to the cumulative frequency sum of all (tag, count) entries - the frequency of Untagged`
+They also verify that the `cumulative frequency sum of all ( (port, protocol) , count ) entries is ==  number of flow logs - the frequency of Untagged`
 
 ## Instructions On Running The Program & Test Cases
 

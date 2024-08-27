@@ -81,10 +81,9 @@ class LogMapper:
             if logKey in self.tagTable:
                 tag = self.tagTable[ logKey ]
                 self.__incrementKeyCount( self.tagCount, tag )
+                self.__incrementKeyCount( self.portProtocolCount, logKey )
             else:
                 self.__incrementKeyCount( self.tagCount, 'Untagged' )
-            
-            self.__incrementKeyCount( self.portProtocolCount, logKey )
     
     # Writes to an output file contianing info regarding the frequency of each unique tag observed
     def __outputTagCount( self ):
@@ -105,7 +104,6 @@ class LogMapper:
         combination is not equal to the number of logs.
     '''
     def __outputPortProtocolCount( self ):
-        totalSum = 0
         with open( self.dir + '/output/port-protocolCount.txt', 'w' ) as file:
             file.write("Port,Protocol,Count\n")
             for portProtocol, count in self.portProtocolCount.items():
@@ -113,10 +111,7 @@ class LogMapper:
                 port = key[0]
                 protocol = key[1]
                 entry = port + "," + protocol + "," + str(count) + "\n"
-                totalSum += count
                 file.write(entry)
-        if totalSum != len(self.logs):
-            print('WARNING: (port, protocol) cumulative count ', totalSum, ' is not equal to the number of logs', len(logs))
     
     # Writes to both output files to output directory test/output/...
     def writeToOuputFiles( self ):

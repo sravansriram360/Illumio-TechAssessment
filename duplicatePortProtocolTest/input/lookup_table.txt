@@ -1,3 +1,4 @@
 dstport,protocol,tag 
 110,tcp,email
+20,tcp,email
 110,udp,sv_P1

@@ -38,6 +38,9 @@ If N is the number of flow logs and M is the number of tag mappings in the looku
 6. `caseSensitiveTest`: This test maps two different (dst_port, protocol) combinations to the same tag (one to sv_P1 and another to SV_P1). This test ensures that both these tags map to sv_p1 to ensure case insensitivity and do not show up as different tags in the output.
 7. `scaleTest`: This test uses a ~10 MB flow log file and 10,000 row lookup table file to ensure that the program runs efficiently and quickly.
 
+The above test cases also provide coverage regarding verifying that even if a port is present in the lookup table, it will not be present in the output file unless the protocol with which it is mapped to a certain tag is also present in a log (and vice versa). 
+In other words, the output frequency will depend on both the port and the protocol being present in the logs, not just either one.
+
 ## Instructions On Running The Program & Test Cases
 
 The `logMapper.py` file implements the LogMapper class and runs each of the aforementioned test cases. 

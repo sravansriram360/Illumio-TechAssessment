@@ -12,7 +12,7 @@ Specifically, the following approach is taken:
 
 * The LogMapper initially parses the lookup table and stores each (dst_port, protocol) -> tag mapping in a HashMap (called `tagTable`).
 * The LogMapper then goes through each flow log, checks whether the (dst_port, protocol) is present in the `tagTable` map.
-  + If it is present, we have a match; in such a case, we can increment the count of the tag in a HashMap (called `tagCount`) that maintains tag -> frequency mapping. We can also increment the count of the (dst_port, protocol) in a different HashMap called (`portProtocolCount`).
+  + If it is present, we have a match; in such a case, we can increment the count of the tag in a HashMap (called `tagCount`) that maintains tag -> frequency mapping. We can also increment the count of the (dst_port, protocol) in a different HashMap (called `portProtocolCount`) which maintains a (port, protocol) -> frequency mapping.
   + If it is not present, we increment the `Untagged` frequency in the `tagCount` HashMap.
 * The LogMapper then goes through the (tag, count) key-value pairs present in the `tagCount` HashMap and writes it to an output file.
 * The LogMapper also goes through the ( (port, protocol), count) key-value pairs present in the `portProtocol` HashMap and writes to a different output file.
@@ -26,6 +26,31 @@ Specifically, the following approach is taken:
 5. `duplicatePortProtocolTest`: This test provides an input multiple different logs, with different (dst_port, protocol) combinations. Some of these (dst_port, protocol) combinations are found multiple times in the flow logs. We expect to see the appropriate frequency of these (dst_port, protocol) combinations in the output. We additionally ensure that (dst_port, protocol)s that are not matched to a tag in the lookup table do not show up in the output.
 6. `caseSensitiveTest`: This test maps two different (dst_port, protocol) combinations to the same tag (one to sv_P1 and another to SV_P1). This test ensures that both these tags map to sv_p1 to ensure case insensitivity and do not show up as different tags in the output.
 7. `scaleTest`: This test uses a ~10 MB flow log file and 10,000 row lookup table file to ensure that the program runs efficiently and quickly.
+
+## Instructions On Running The Program & Test Cases
+
+The `logMapper.py` file implements the LogMapper class and runs each of the aforementioned test cases. 
+
+Each test case is present in its own folder. In each parent folder denoting the test case, we have an subfolder called `input` that contains the two input files for this test. 
+The `flow_logs.txt` file contains the rows of logs and the `lookup_table.txt` contains the mapping of the (dst_port, protocol) and their tags. 
+
+For instance, if we are to take the `singleTagMappingAllPresentTest` as an example:
+* The input files are present as:
+  + `singleTagMappingAllPresentTest/input/flow_logs.txt`
+  + `singleTagMappingAllPresentTest/input/lookup_table.txt`
+
+The logMapper.py file creates a LogMapper object for each of these test cases and writes the output to an `output` subfolder under the same parent test folder.
+For example, after running the logMapper.py file, we expect to see the output corresponding to the `singleTagMappingAllPresentTest/input/` files in the `singleTagMappingAllPresentTest/output/` folder.
+* The output files are present as:
+  + `singleTagMappingAllPresentTest/output/tagCount.txt` (containing the tag, count output)
+  + `singleTagMappingAllPresentTest/output/port-protocolCount.txt` (containing the port, protocol, count output)
+    
+<p align="center">To run the logMapper.py file run, `<strong>python3 logMapper.py</strong>`.</p>
+
+In case, one wants to add additional test case input files - 
+* Create a parent level directory and a subfolder called `input`. Place the input flow logs in a file called flow_logs.txt and the lookup table in a file called `lookup_table.txt`
+* Add the parent level directory name to the `tests` list on line 127 of logMapper.py.
+* After running the logMapper.py file, you will see the output files present in the output subfolder of the parent test directory.
 
 
 

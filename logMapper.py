@@ -87,7 +87,7 @@ class LogMapper:
     
     '''
         Writes to an output file contianing info regarding the frequency of 
-        each tag (as well as those that are Untagged). Outputs a WARNING message if the total 
+        each tag (as well as those that are Untagged). Outputs an ERROR message if the total 
         cumulative count of all tags is not equal to the total number of logs.
     '''
     def __outputTagCount( self ):
@@ -99,13 +99,20 @@ class LogMapper:
                 totalSum += count
                 file.write(entry)
         if totalSum != len(self.logs):
-            print('WARNING: tags cumulative count ', totalSum, ' is not equal to the number of logs', len(logs))
+            print('ERROR: tags cumulative count ', totalSum, ' is not equal to the number of logs', len(logs))
     
     '''
         Writes to an output file contianing info regarding the frequency of 
-        each unique (port, protocol) combination observed.
+        each unique (port, protocol) combination observed. Outputs an ERROR message if the total 
+        cumulative count of all (port, protocol) combinations is not equal 
+        to total number of logs - untagged counts.
     '''
     def __outputPortProtocolCount( self ):
+        expectedTotalSum = len(self.logs) 
+        if 'Untagged' in self.tagCount:
+            expectedTotalSum -= self.tagCount['Untagged']
+
+        actualTotalSum = 0
         with open( self.dir + '/output/port-protocolCount.txt', 'w' ) as file:
             file.write("Port,Protocol,Count\n")
             for portProtocol, count in self.portProtocolCount.items():
@@ -113,7 +120,11 @@ class LogMapper:
                 port = key[0]
                 protocol = key[1]
                 entry = port + "," + protocol + "," + str(count) + "\n"
+                actualTotalSum += count
                 file.write(entry)
+        
+        if actualTotalSum != expectedTotalSum:
+            print('ERROR: (port, protocol) cumulative count ', actualTotalSum, ' is not equal to expected cumulative count', expectedTotalSum)
     
     # Writes to both output files to output directory test/output/...
     def writeToOuputFiles( self ):

@@ -56,7 +56,7 @@ For example, after running the logMapper.py file, we expect to see the output co
   + `singleTagMappingAllPresentTest/output/tagCount.txt` (containing the tag, count output)
   + `singleTagMappingAllPresentTest/output/port-protocolCount.txt` (containing the port, protocol, count output)
     
-<p align="center">To run the logMapper.py file run, <strong>python3 logMapper.py</strong>.</p>
+<p align="center">To run the logMapper.py file run the command <strong>python3 logMapper.py</strong> on your terminal</p> 
 
 In case, one wants to add additional test case input files - 
 * Create a parent level directory and a subfolder called `input`. Place the input flow logs in a file called flow_logs.txt and the lookup table in a file called `lookup_table.txt` in this input subfolder.

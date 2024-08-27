@@ -66,7 +66,7 @@ For example, after running the logMapper.py file, we expect to see the output co
 
 In case, one wants to add additional test case input files - 
 * Create a parent level directory and a subfolder called `input`. Place the input flow logs in a file called `flow_logs.txt` and the lookup table in a file called `lookup_table.txt` in this input subfolder.
-* Add the parent level directory name to the `tests` list on line 127 of logMapper.py.
+* Add the parent level directory name to the `tests` list on line 140 of logMapper.py.
 * After running the logMapper.py file, you will see the output files present in the output subfolder of the parent test directory.
 
 
